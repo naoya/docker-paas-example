@@ -90,8 +90,8 @@ echo "-----> Building new container ..."
 job=$(docker run -i -a stdin -v /var/cache/docker-paas/<%= reponame %>/buildpacks:/var/cache/buildpacks <%= docker_user %>/<%= reponame %> /bin/bash -c \
     "for buildpack in /var/lib/buildpacks/*; do \$buildpack/bin/detect /root/<%= reponame %> && selected_buildpack=\$buildpack && break; done;
      if [ -n \$selected_buildpack ]; then echo \"\$selected_buildpack detected\"; else exit 1; fi;
-    CURL_TIMEOUT=360 /var/lib/buildpacks/heroku-buildpack-ruby/bin/compile /root/<%= reponame %> /var/cache/buildpacks &&
-     /var/lib/buildpacks/heroku-buildpack-ruby/bin/release /root/<%= reponame %> > /root/<%= reponame %>/.release")
+     CURL_TIMEOUT=360 \$selected_buildpack/bin/compile /root/<%= reponame %> /var/cache/buildpacks &&
+     \$selected_buildpack/bin/release /root/<%= reponame %> > /root/<%= reponame %>/.release")
 test $(docker wait $job) -eq 0
 docker commit $job <%= docker_user %>/<%= reponame %> > /dev/null
 
