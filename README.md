@@ -19,7 +19,7 @@ Docker Meetup Tokyo #2 に向けて試作した。
 - できたレポジトリを remote ブランチに設定して、git push すると post-update hooks が動く
 - buildpack で生成された yaml ファイルを読み取って、対象のアプリケーションを指定の起動方法で exec する
 
-なお、OSX とコンテナの通信は VMWare のホストオンリーアダプタで行う。VMWare 側でインタフェースを追加して、boot2docker の /var/lib/boot2docker/bootlocal.sh に設定しておく
+なお、OSX とコンテナの通信は VirtualBox のホストオンリーアダプタで行う。VirtualBox 側でインタフェースを追加して、boot2docker の /var/lib/boot2docker/bootlocal.sh に設定しておく
 
 ```
 ip addr add 192.168.56.100/24 dev eth1
